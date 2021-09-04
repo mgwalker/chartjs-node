@@ -1,0 +1,28 @@
+{
+  "name": "chartjs-node",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "dist/main.js",
+  "files": [
+    "dist/**"
+  ],
+  "scripts": {
+    "build": "node build/build.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "playwright": "^1.14.1"
+  },
+  "devDependencies": {
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.24.2",
+    "node-fetch": "^3.0.0",
+    "prettier": "^2.3.2"
+  },
+  "prettier": {}
+}

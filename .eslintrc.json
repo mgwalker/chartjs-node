@@ -1,0 +1,21 @@
+{
+  "extends": ["airbnb-base", "prettier"],
+  "rules": {
+    "import/extensions": ["error", "always"],
+    "no-shadow": ["error", { "allow": ["_"] }],
+    "prefer-destructuring": [0]
+  },
+  "env": {
+    "es6": true,
+    "node": true
+  },
+  "parserOptions": { "ecmaVersion": 2020 },
+  "overrides": [
+    {
+      "files": ["src/**/*.test.js", "src/utils/test.js"],
+      "env": {
+        "jest": true
+      }
+    }
+  ]
+}
