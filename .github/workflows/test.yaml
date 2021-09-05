@@ -1,0 +1,66 @@
+name: run snapshot tests
+
+on: [push, pull_request]
+
+jobs:
+  setup:
+    name: create environment
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/setup-node@d6e3b5539ed7e5ccd26c3459e26c7c817f4e9068
+        with:
+          node-version: 16
+      - uses: actions/checkout@af513c7a016048ae468971c52ed77d9562c7c819
+      - uses: actions/cache@d1255ad9362389eac595a9ae406b8e8cb3331f16
+        id: depcache
+        with:
+          path: ./node_modules
+          key: chartjs-node-${{ runner.os }}-${{ hashFiles('package.json') }}-v1
+      - name: install dependencies
+        if: steps.depcache.outputs.cache-hit != 'true'
+        run: npm install
+
+  lint:
+    needs: [setup]
+    name: lint code
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/setup-node@d6e3b5539ed7e5ccd26c3459e26c7c817f4e9068
+        with:
+          node-version: 16
+      - uses: actions/checkout@af513c7a016048ae468971c52ed77d9562c7c819
+      - uses: actions/cache@d1255ad9362389eac595a9ae406b8e8cb3331f16
+        id: depcache
+        with:
+          path: ./node_modules
+          key: chartjs-node-${{ runner.os }}-${{ hashFiles('package.json') }}-v1
+      - name: lint code
+        run: npm run lint
+
+  # snapshot:
+  #   needs: [setup]
+  #   name: runs snapshot tests
+  #   runs-on: ubuntu-latest
+
+  #   steps:
+  #     - uses: actions/setup-node@d6e3b5539ed7e5ccd26c3459e26c7c817f4e9068
+  #       with:
+  #         node-version: 16
+  #     - uses: actions/checkout@af513c7a016048ae468971c52ed77d9562c7c819
+  #     - uses: actions/cache@d1255ad9362389eac595a9ae406b8e8cb3331f16
+  #       id: depcache
+  #       with:
+  #         path: ./node_modules
+  #         key: chartjs-node-${{ runner.os }}-${{ hashFiles('package.json') }}-v1
+  #     - name: configure playwright
+  #       run: npx playwright install chromium
+  #     - name: run snapshot tests
+  #       run: npm test
+  #     - name: store diff artifacts, if any
+  #       if: ${{ failure() }}
+  #       uses: actions/upload-artifact@11e311c8b504ea40cbed20583a64d75b4735cff3
+  #       with:
+  #         name: diffs
+  #         path: test/snapshots/*-diff.png

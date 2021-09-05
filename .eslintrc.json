@@ -12,7 +12,7 @@
   "parserOptions": { "ecmaVersion": 2020 },
   "overrides": [
     {
-      "files": ["src/**/*.test.js", "src/utils/test.js"],
+      "files": ["test/*.js"],
       "env": {
         "jest": true
       }

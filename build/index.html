@@ -9,6 +9,18 @@
     <script type="text/javascript">
       canvas = document.querySelector("canvas");
 
+      Chart.register({
+        id: "backgroundColor",
+        beforeDraw: (chart) => {
+          const ctx = chart.canvas.getContext("2d");
+          ctx.save();
+          ctx.globalCompositeOperation = "destination-over";
+          ctx.fillStyle = chart.options.backgroundColor ?? "white";
+          ctx.fillRect(0, 0, chart.width, chart.height);
+          ctx.restore();
+        },
+      });
+
       tick = () =>
         new Promise((resolve) => {
           setTimeout(() => {
