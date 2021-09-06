@@ -14,7 +14,7 @@ npm install @mgwalker/chartjs-node
 And then to use it:
 
 ```javascript
-import Chart from "chartjs-node";
+import Chart from "@mgwalker/chartjs-node";
 
 const myChart = new Chart([width, height], config);
 ```
